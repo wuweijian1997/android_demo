@@ -9,7 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".learn.android.SecondActivity">
+            <intent-filter>
+                <action android:name="com.logic.activitytest.ACTION_START" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.logic.activitytest.MY_CATEGORY" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".learn.android.FirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
