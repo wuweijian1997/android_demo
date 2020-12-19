@@ -15,10 +15,12 @@ import kotlinx.android.synthetic.main.first_layout.*
 class FirstActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("FirstActivity", "Task id is $taskId")
         setContentView(R.layout.first_layout)
         button1.setOnClickListener {
             //显式Intent
-//            val intent = Intent(this, SecondActivity::class.java)
+            val intent = Intent(this, SecondActivity::class.java)
+            startActivity(intent)
             //隐式Intent
             /*val intent = Intent("com.logic.activitytest.ACTION_START")
             intent.addCategory("com.logic.activitytest.MY_CATEGORY")
@@ -33,8 +35,8 @@ class FirstActivity : AppCompatActivity() {
             intent.putExtra("extra_data", "Hello World")
             startActivity(intent)*/
             /*参数返回*/
-            val intent = Intent(this, SecondActivity::class.java)
-            startActivityForResult(intent, 1)
+            /*val intent = Intent(this, SecondActivity::class.java)
+            startActivityForResult(intent, 1)*/
         }
     }
 
