@@ -289,3 +289,29 @@ class Util {
     }
 }
 ```
+## 延迟初始化和密封类
+### 对变量延迟初始化
+使用关键字 lateinit
+```
+private lateinit var adapter: MsgAdapter
+```
+判断是否初始化
+```
+if(!::adapter.isInitialized) {
+    adapter = MsgAdapter(msgList)
+}
+```
+### 密封类
+sealed
+```
+sealed class Result
+class Success(val msg: String): Result()
+class Failure(val error: Exception): Result()
+```
+使用
+```
+fun getResultMsg(result: Result) = when(result) {
+    is Success -> result.msg
+    is Failure -> "Error is ${result.error.message}"
+}
+```

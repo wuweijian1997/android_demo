@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
 import com.logic.demo.learn.android.layout.ListViewDemo
+import com.logic.demo.learn.android.layout.RecyclerViewDemo
+import com.logic.demo.learn.android.layout.StaggeredGridDemo
 import com.logic.demo.learn.lifecycle.DialogActivity
 import com.logic.demo.learn.lifecycle.NormalActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,6 +34,14 @@ class MainActivity : AppCompatActivity() {
 
         startListView.setOnClickListener {
             val intent = Intent(this, ListViewDemo::class.java)
+            startActivity(intent)
+        }
+        startRecyclerView.setOnClickListener {
+            val intent = Intent(this, RecyclerViewDemo::class.java)
+            startActivity(intent)
+        }
+        startStaggeredGrid.setOnClickListener {
+            val intent = Intent(this, StaggeredGridDemo::class.java)
             startActivity(intent)
         }
     }

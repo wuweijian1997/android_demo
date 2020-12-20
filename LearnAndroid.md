@@ -562,3 +562,213 @@ class FruitAdapter(activity: Activity, private val resourceId: Int, data: List<S
     inner class ViewHolder(val fruitName: TextView)
 }
 ```
+
+### RecyclerView
+> recycler_view_demo.xml
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
+```
+> RecyclerViewAdapter.kt
+
+```
+class RecyclerViewAdapter(private val fruitList: List<String>) :
+    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val fruitName: TextView = view.findViewById(R.id.fruitName)
+    }
+
+    ///用于创建ViewHolder实例.
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.list_item_demo, parent, false)
+            ///横向滚动
+    //            .inflate(R.layout.list_item_horizontal, parent, false)
+
+            ///点击事件
+            val viewHolder = ViewHolder(view)
+            val position = viewHolder.adapterPosition
+            val fruit = fruitList[position]
+            viewHolder.itemView.setOnClickListener {
+                Toast.makeText(parent.context, "You clicked view: $fruit", Toast.LENGTH_SHORT).show()
+            }
+            viewHolder.fruitName.setOnClickListener {
+                Toast.makeText(parent.context, "You clicked fruit name: $fruit", Toast.LENGTH_SHORT).show()
+            }
+            return viewHolder
+        }
+
+    ///告诉RecyclerView一共有多少子项
+    override fun getItemCount() = fruitList.size
+
+//    用于对RecyclerView子项的数据进行赋值.
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val fruit = fruitList[position];
+        holder.fruitName.text = fruit;
+    }
+}
+```
+> RecyclerViewDemo.kt
+
+```
+class RecyclerViewDemo : AppCompatActivity() {
+    private val data = listOf<String>(
+        "Apple",
+        "Banana",
+        "Orange",
+        "Watermelon",
+        "Pear",
+        "Grape",
+        "Pineapple",
+        "Cherry",
+        "Mango",
+        "Apple",
+        "Banana",
+        "Orange",
+        "Watermelon",
+        "Pear",
+        "Grape",
+        "Pineapple",
+        "Cherry",
+        "Mango"
+    )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.recycler_view_demo)
+        val adapter = RecyclerViewAdapter(
+            data
+        )
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+    }
+}
+```
+### 瀑布流
+> list_item_staggered_grid.xml
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/fruitName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="10dp"
+        />
+</LinearLayout>
+```
+
+> list_view_demo.xml
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
+```
+
+> StaggeredGridAdapter.kt
+
+```
+class StaggeredGridAdapter(private val fruitList: List<String>) :
+    RecyclerView.Adapter<StaggeredGridAdapter.ViewHolder>() {
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val fruitName: TextView = view.findViewById(R.id.fruitName)
+    }
+
+    ///用于创建ViewHolder实例.
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.list_item_staggered_grid, parent, false)
+        return ViewHolder(view)
+    }
+
+    ///告诉RecyclerView一共有多少子项
+    override fun getItemCount() = fruitList.size
+
+//    用于对RecyclerView子项的数据进行赋值.
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val fruit = fruitList[position];
+        holder.fruitName.text = fruit;
+    }
+}
+```
+
+> StaggeredGridDemo.kt
+
+```
+///瀑布流
+class StaggeredGridDemo : AppCompatActivity() {
+    private val data = listOf<String>(
+        "Apple",
+        "Banana",
+        "Orange",
+        "Watermelon",
+        "Pear",
+        "Grape",
+        "Pineapple",
+        "Cherry",
+        "Mango",
+        "Apple",
+        "Banana",
+        "Orange",
+        "Watermelon",
+        "Pear",
+        "Grape",
+        "Pineapple",
+        "Cherry",
+        "Mango"
+    )
+
+    private val fruitList = ArrayList<String>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.recycler_view_demo)
+        initFruits()
+        val adapter = RecyclerViewAdapter(
+            fruitList
+        )
+        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+    }
+
+    private fun initFruits() {
+        repeat(3) {
+            data.forEach { fruitList.add(getRandomLengthString(it)) }
+        }
+    }
+
+    private fun getRandomLengthString(str: String): String {
+        val n = (1..20).random()
+        val builder = StringBuilder()
+        repeat(n) {
+            builder.append(str)
+        }
+        return builder.toString()
+    }
+}
+```

@@ -1,4 +1,4 @@
-package com.logic.demo.adapter
+package com.logic.demo.learn.android.adapter
 
 import android.app.Activity
 import android.view.LayoutInflater

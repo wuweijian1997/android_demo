@@ -36,6 +36,20 @@
         android:layout_height="wrap_content"
         android:text="Start ListView" />
 
+    <Button
+        android:id="@+id/startRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start RecyclerView" />
+
+    <Button
+        android:id="@+id/startStaggeredGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start StaggeredGrid" />
+
+
+
 
 
 </LinearLayout>

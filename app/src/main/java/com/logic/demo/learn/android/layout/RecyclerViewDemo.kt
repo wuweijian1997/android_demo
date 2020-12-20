@@ -3,11 +3,14 @@ package com.logic.demo.learn.android.layout
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.logic.demo.learn.android.adapter.FruitAdapter
 import com.logic.demo.R
+import com.logic.demo.learn.android.adapter.RecyclerViewAdapter
 import kotlinx.android.synthetic.main.list_view_demo.*
+import kotlinx.android.synthetic.main.recycler_view_demo.*
 
-class ListViewDemo : AppCompatActivity() {
+class RecyclerViewDemo : AppCompatActivity() {
     private val data = listOf<String>(
         "Apple",
         "Banana",
@@ -31,16 +34,14 @@ class ListViewDemo : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.list_view_demo)
-        val adapter = FruitAdapter(
-            this,
-            R.layout.list_item_demo,
+        setContentView(R.layout.recycler_view_demo)
+        val adapter = RecyclerViewAdapter(
             data
         )
-        listView.adapter = adapter
-        listView.setOnItemClickListener { _, _, position, _ ->
-            val fruit = data[position]
-            Toast.makeText(this, fruit, Toast.LENGTH_SHORT).show()
-        }
+        val layoutManager = LinearLayoutManager(this)
+        ///横向滚动
+//        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
     }
 }
