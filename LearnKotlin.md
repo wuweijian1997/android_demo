@@ -315,3 +315,37 @@ fun getResultMsg(result: Result) = when(result) {
     is Failure -> "Error is ${result.error.message}"
 }
 ```
+## 拓展函数和运算符重载
+### 拓展函数
+```
+fun ClassName.methodName(param1:Int, param2:Int):Int {
+    return 0
+}
+```
+demo
+```
+fun String.lettersCount(): Int {
+    var count = 0
+    for (char in this) {
+        if(char.isLetter()) {
+            count++
+        }
+    }
+    return count
+}
+```
+### 运算符重载
+```
+
+class Money(val value: Int) {
+    operator fun plus(money: Money): Money {
+        val sum = value + money.value
+        return Money(sum)
+    }
+
+    operator fun plus(newValue: Int): Money {
+        val sum = value + newValue
+        return Money(sum)
+    }
+}
+```
