@@ -10,14 +10,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".learn.android.news.NewsContentActivity"></activity>
+        <activity android:name=".learn.android.news.ActivityNews"></activity>
+        <activity android:name=".learn.android.layout.ListViewDemo" />
+        <activity android:name=".learn.android.layout.RecyclerViewDemo" />
+        <activity android:name=".learn.android.layout.RelativeLayout" />
+        <activity android:name=".learn.android.layout.LinearLayout" />
+        <activity android:name=".learn.android.layout.StaggeredGridDemo" />
+        <activity android:name=".learn.android.fragment.FragmentDemo" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".learn.lifecycle.DialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".learn.lifecycle.NormalActivity" />
         <activity android:name=".learn.android.ThirdActivity">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".learn.android.SecondActivity">
+        <activity
+            android:name=".learn.android.SecondActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="com.logic.activitytest.ACTION_START" />
 
@@ -26,11 +49,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".learn.android.FirstActivity">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
     </application>
 

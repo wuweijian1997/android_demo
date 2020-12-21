@@ -220,3 +220,132 @@ val list = listOf("Apple", "Banana", "orange", "Pear", "Grape")
 val newList = list.filter { it.length <= 5 }
 .map{it.toUpperCase() }
 ```
+## 标准函数 with、run和apply
+### with
+with函数接收两个参数:第一个参数可以是一个任意类型的对象,第二个参数是一个Lambda表达式.with函数会在Lambda表达式中提供第一个参数对象的上下文,并使用Lambda表达式中最后一行代码作为返回值返回.
+> example
+
+```
+val list = listOf("apple", "banana", "Orange", "Pear", "Grape")
+val builder = StringBuilder()
+builder.append("Start eating fruits.\n")
+for(fruit in list) {
+    builder.append(fruit).append("\n")
+}
+builder.append("Eat all fruits.")
+val result = builder.toString()
+println(result)
+```
+> 使用with
+
+```
+val list = listOf("apple", "banana", "orange")
+val result = with(StringBuilder()) {
+    append("Start eating fruits.\n")
+    for(fruit in list) {
+        append(fruit).append("\n")
+    }
+    append("Ate all fruits.")
+    toString()
+}
+print(result)
+```
+
+### run
+run函数是不能直接调用的,而是一定要调用某个对象的run函数才行;其次run函数只接收一个Lambda参数,并且会在Lambda表达式中提供调用对象的上下文.
+```
+val result = StringBuilder().run {
+    append("Start eating fruits.\n")
+    for(fruit in list) {
+        append(fruit).append("\n")
+    }
+    append("Ate all fruits.")
+    toString()
+}
+```
+### apply
+apply函数无法指定返回值,而是会自动返回调用对象本身.
+```
+val result = StringBuilder().apply {
+    append("start eating fruits.")
+    for (fruit in list) {
+        append(fruit).append("\n")
+    }
+    append("ate all fruits.")
+}
+println(result.toString())
+```
+## Kotlin静态方法
+```
+class Util {
+    fun doAction1() {
+        println("do action1")
+    }
+
+    companion object {
+        fun doAction2() {
+            println("do action2")
+        }
+    }
+}
+```
+## 延迟初始化和密封类
+### 对变量延迟初始化
+使用关键字 lateinit
+```
+private lateinit var adapter: MsgAdapter
+```
+判断是否初始化
+```
+if(!::adapter.isInitialized) {
+    adapter = MsgAdapter(msgList)
+}
+```
+### 密封类
+sealed
+```
+sealed class Result
+class Success(val msg: String): Result()
+class Failure(val error: Exception): Result()
+```
+使用
+```
+fun getResultMsg(result: Result) = when(result) {
+    is Success -> result.msg
+    is Failure -> "Error is ${result.error.message}"
+}
+```
+## 拓展函数和运算符重载
+### 拓展函数
+```
+fun ClassName.methodName(param1:Int, param2:Int):Int {
+    return 0
+}
+```
+demo
+```
+fun String.lettersCount(): Int {
+    var count = 0
+    for (char in this) {
+        if(char.isLetter()) {
+            count++
+        }
+    }
+    return count
+}
+```
+### 运算符重载
+```
+
+class Money(val value: Int) {
+    operator fun plus(money: Money): Money {
+        val sum = value + money.value
+        return Money(sum)
+    }
+
+    operator fun plus(newValue: Int): Money {
+        val sum = value + newValue
+        return Money(sum)
+    }
+}
+```
