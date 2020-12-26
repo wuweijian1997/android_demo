@@ -51,7 +51,7 @@ class NewsTitleFragment : Fragment() {
         return builder.toString()
     }
 
-    inner class NewsAdapter(val newsList: List<News>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+    inner class NewsAdapter(private val newsList: List<News>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
         inner class ViewHolder(view:View):  RecyclerView.ViewHolder(view) {
             val newsTitle: TextView = view.findViewById(R.id.newsTitle)
         }

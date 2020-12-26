@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/newTitleLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
     <fragment
         android:id="@+id/newsTitleFrag"
-        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:name="com.logic.demo.learn.android.demo.news.fragment.NewsTitleFragment"
         android:layout_weight="1"
-        />
+        android:layout_width="1dp" />
     <FrameLayout
         android:id="@+id/newContentLayout"
         android:layout_width="0dp"
@@ -23,4 +22,4 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </FrameLayout>
-</FrameLayout>
+</LinearLayout>
