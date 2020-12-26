@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/newsTitleFrag"
         android:layout_height="match_parent"
-        android:name="com.logic.demo.learn.android.news.fragment.NewsTitleFragment"
+        android:name="com.logic.demo.learn.android.demo.news.fragment.NewsTitleFragment"
         android:layout_weight="1"
         android:layout_width="1dp" />
     <FrameLayout
@@ -18,7 +18,7 @@
         >
         <fragment
             android:id="@+id/newsContentFrag"
-            android:name="com.logic.demo.learn.android.news.fragment.NewsContentFragment"
+            android:name="com.logic.demo.learn.android.demo.news.fragment.NewsContentFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </FrameLayout>

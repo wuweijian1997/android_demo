@@ -60,5 +60,24 @@
         android:layout_height="wrap_content"
         android:text="Start News" />
 
+    <Button
+        android:id="@+id/myBroadcastReceiver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="广播"
+        />
+
+    <Button
+        android:id="@+id/broadcastOffline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="广播下线通知"
+        />
+    <Button
+        android:id="@+id/createDatabase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="创建数据库"
+        />
 
 </LinearLayout>

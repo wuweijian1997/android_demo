@@ -1,4 +1,4 @@
-package com.logic.demo.learn.android.news.fragment
+package com.logic.demo.learn.android.demo.news.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

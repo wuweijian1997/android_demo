@@ -1,4 +1,4 @@
-package com.logic.demo.learn.android.news.fragment
+package com.logic.demo.learn.android.demo.news.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.logic.demo.R
-import com.logic.demo.learn.android.news.NewsContentActivity
-import com.logic.demo.learn.android.news.model.News
+import com.logic.demo.learn.android.demo.news.NewsContentActivity
+import com.logic.demo.learn.android.demo.news.model.News
 import kotlinx.android.synthetic.main.activity_news.*
-import kotlinx.android.synthetic.main.news_content_flag.*
 import kotlinx.android.synthetic.main.news_title_frag.*
 
 class NewsTitleFragment : Fragment() {

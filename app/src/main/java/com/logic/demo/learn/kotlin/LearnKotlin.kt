@@ -54,3 +54,13 @@ class Money(val value: Int) {
         return Money(sum)
     }
 }
+
+fun example(func: (String, Int) -> Unit) {
+    func("Hello", 123)
+}
+
+fun num1AndNum2(num1: Int, num2: Int, operation: (Int, Int) -> Int): Int {
+    val result = operation(num1, num2)
+    return result
+}
+val result1 = num1AndNum2(100, 200) {n1, n2 -> n1 + n2}

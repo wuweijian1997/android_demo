@@ -349,3 +349,26 @@ class Money(val value: Int) {
     }
 }
 ```
+## 高阶函数
+定义: 如果一个函数接收另一个函数作为参数,或者返回值的类型是另一个函数,那么该函数就称为高阶函数
+```
+fun example(func: (String, Int) -> Unit) {
+    func("Hello", 123)
+}
+```
+Lambda表达式
+```
+fun num1AndNum2(num1: Int, num2: Int, operation: (Int, Int) -> Int): Int {
+    val result = operation(num1, num2)
+    return result
+}
+val result1 = num1AndNum2(100, 200) {n1, n2 -> n1 + n2}
+```
+内联函数
+使用inline关键字
+```
+inline fun num1AndNum2(num1: Int, num2: Int, operation: (Int, Int) -> Int): Int {
+    val result = operation(num1, num2)
+    return result
+}
+```

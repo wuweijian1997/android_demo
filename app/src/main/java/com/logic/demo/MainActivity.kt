@@ -1,35 +1,45 @@
 package com.logic.demo
 
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
+import com.logic.demo.learn.android.database.MyDatabaseHelper
+import com.logic.demo.learn.android.demo.broadcast.LoginActivity
 import com.logic.demo.learn.android.fragment.FragmentDemo
 import com.logic.demo.learn.android.layout.ListViewDemo
 import com.logic.demo.learn.android.layout.RecyclerViewDemo
 import com.logic.demo.learn.android.layout.StaggeredGridDemo
-import com.logic.demo.learn.android.news.ActivityNews
+import com.logic.demo.learn.android.demo.news.ActivityNews
+import com.logic.demo.learn.android.receiver.TimeChangeReceiver
 import com.logic.demo.learn.lifecycle.DialogActivity
 import com.logic.demo.learn.lifecycle.NormalActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.*
 
 class MainActivity : AppCompatActivity() {
     private val tag = "MainActivity"
+    lateinit var timeChangeReceiver: TimeChangeReceiver
+    private val dbHelper = MyDatabaseHelper(this, "BookStore.db", 1)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(tag, "onCreate")
         setContentView(R.layout.activity_main)
-        if(savedInstanceState != null) {
+        initReceiver()
+        onSave("Hello World")
+        if (savedInstanceState != null) {
             ///恢复数据
             val tempData = savedInstanceState.getString("data_key")
             Log.d(tag, tempData)
         }
-        startNormalActivity.setOnClickListener{
+        startNormalActivity.setOnClickListener {
             val intent = Intent(this, NormalActivity::class.java)
             startActivity(intent)
         }
-        startDialogActivity.setOnClickListener{
+        startDialogActivity.setOnClickListener {
             val intent = Intent(this, DialogActivity::class.java)
             startActivity(intent)
         }
@@ -54,7 +64,71 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ActivityNews::class.java)
             startActivity(intent)
         }
+        myBroadcastReceiver.setOnClickListener {
+            val intent = Intent("com.logic.demo.MY_BROADCAST")
+            intent.setPackage(packageName)
+            //发送标准广播
+//            sendBroadcast(intent)
+            /// 发送有序广播
+            sendOrderedBroadcast(intent, null)
+        }
+        broadcastOffline.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+        createDatabase.setOnClickListener {
+            dbHelper.writableDatabase
+        }
+    }
 
+    private fun onSave(intputText: String) {
+        try {
+            val output = openFileOutput("data", Context.MODE_PRIVATE)
+            val writer = BufferedWriter(OutputStreamWriter(output))
+            writer.use {
+                it.write(intputText)
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun load(): String {
+        val content = StringBuilder()
+        try {
+            val input = openFileInput("data")
+            val reader = BufferedReader(InputStreamReader(input))
+            reader.use {
+                reader.forEachLine { content.append(it) }
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        return content.toString()
+    }
+
+    private fun onSaveSharedPreferences() {
+        val editor = getSharedPreferences("data", Context.MODE_PRIVATE).edit()
+        editor.putString("name", "Tom")
+        editor.putInt("age", 28)
+        editor.putBoolean("married", false)
+        editor.apply()
+    }
+
+    private fun onLoadSharedPreferences() {
+        val prefs = getSharedPreferences("data", Context.MODE_PRIVATE)
+        prefs.getString("name", "")
+        prefs.getInt("age", 0)
+        prefs.getBoolean("married", false)
+    }
+
+    /// 初始化广播
+    private fun initReceiver() {
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("android.intent.action.TIME_TICK")
+        timeChangeReceiver = TimeChangeReceiver()
+        registerReceiver(timeChangeReceiver, intentFilter)
     }
 
     override fun onStart() {
@@ -79,6 +153,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        unregisterReceiver(timeChangeReceiver)
         Log.d(tag, "onDestroy")
     }
 

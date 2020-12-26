@@ -797,3 +797,291 @@ if(activity != null) {
 当与Fragment关联的视图被移除时调用
 #### onDetach
 当Fragment和Activity解除关联时调用.
+
+## 广播
+完整的广播系统列表
+`<Android SDK>/platforms/<Android api 版本>/data/broadcast_action.txt`
+### 标准广播
+标准广播是一种完全异步执行的广播,在广播发出之后,所有的BroadcastReceiver几乎会在同一时刻收到这条广播信息,因此他们之间没有任何先后顺序可言.
+这种广播的效率会比较高,但同时也意味着它是无法被截断的.
+### 有序广播
+有序广播则是一种同步执行的广播,在广播发出之后,同一时刻只有一个BroadcastReceiver能够收到这条广播信息,当这个BroadcastReceiver中的逻辑执行完毕之后,广播才会继续传递.
+优先级高的BroadcastReceiver就可以先收到广播信息,并且前面的BroadcastReceiver还可以截断正在传递的广播,这样后面的BroadcastReceiver就无法收到广播信息了.
+### 注册
+注册BroadcastReceiver的方式分为两种:在代码中注册和在Android Manifest.xml中注册.前者称为动态注册,后者称为静态注册.
+#### 动态注册
+> TimeChangeReceiver.kt
+
+```
+class TimeChangeReceiver: BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        Toast.makeText(context, "Time has changed", Toast.LENGTH_SHORT).show();
+    }
+}
+```
+
+> MainActivity.kt
+
+```
+class MainActivity : AppCompatActivity() {
+    lateinit var timeChangeReceiver: TimeChangeReceiver
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("android.intent.action.TIME_TICK")
+        timeChangeReceiver = TimeChangeReceiver()
+        registerReceiver(timeChangeReceiver, intentFilter)
+   }
+
+   override fun onDestroy() {
+       super.onDestroy()
+       unregisterReceiver(timeChangeReceiver)
+   }
+}
+```
+
+#### 静态注册
+可以让程序在未启动的情况下也能接收广播.
+> BootCompleteReceive.kt
+
+```
+class BootCompleteReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        Toast.makeText(context, "Boot Complete", Toast.LENGTH_SHORT).show();
+    }
+}
+```
+> AndroidManifest.xml
+
+```
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+<receiver
+    android:name=".learn.android.receiver.BootCompleteReceiver"
+    android:enabled="true"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+    </intent-filter>
+</receiver>
+```
+### 自定义广播
+#### 标准广播
+> MyBroadcastReceiver.kt
+
+```
+class MyBroadcastReceiver : BroadcastReceiver() {
+
+    override fun onReceive(context: Context, intent: Intent) {
+        Toast.makeText(context, "MyBroadcastReceiver", Toast.LENGTH_SHORT).show();
+    }
+}
+```
+> MainActivity.kt
+
+```
+myBroadcastReceiver.setOnClickListener {
+    val intent = Intent("com.logic.demo.MY_BROADCAST")
+    intent.setPackage(packageName)
+    sendBroadcast(intent)
+}
+```
+> AndroidManifest.xml
+
+```
+<receiver
+    android:name=".learn.android.receiver.MyBroadcastReceiver"
+    android:enabled="true"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="com.logic.demo.MY_BROADCAST" />
+    </intent-filter>
+</receiver>
+```
+#### 有序广播
+是一种同步执行的广播,并且可以被截断.
+> AndroidManifest.xml
+
+```
+<receiver
+    android:name=".learn.android.receiver.MyBroadcastReceiver"
+    android:enabled="true"
+    android:exported="true">
+    <intent-filter android:priority="100">
+        <action android:name="com.logic.demo.MY_BROADCAST" />
+    </intent-filter>
+</receiver>
+<receiver
+    android:name=".learn.android.receiver.AnotherBroadcastReceiver"
+    android:enabled="true"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="com.logic.demo.MY_BROADCAST" />
+    </intent-filter>
+</receiver>
+```
+> MainActivity.kt
+
+```
+myBroadcastReceiver.setOnClickListener {
+    val intent = Intent("com.logic.demo.MY_BROADCAST")
+    intent.setPackage(packageName)
+    //发送标准广播
+//            sendBroadcast(intent)
+    /// 发送有序广播
+    sendOrderedBroadcast(intent, null)
+}
+```
+> MyBroadcastReceiver.kt
+
+```
+class MyBroadcastReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        Toast.makeText(context, "MyBroadcastReceiver", Toast.LENGTH_SHORT).show();
+        //阻止广播传递
+        abortBroadcast()
+    }
+}
+```
+> AnotherBroadcastReceiver.kt
+
+```
+class AnotherBroadcastReceiver : BroadcastReceiver() {
+
+    override fun onReceive(context: Context, intent: Intent) {
+        Toast.makeText(context, "AnotherBroadcastReceiver", Toast.LENGTH_SHORT).show();
+    }
+}
+```
+## 数据存储
+### 文件存储
+context类中提供了一个openFileOutput()方法,可以用于将数据存储到指定的文件夹中.
+这个方法有两个参数:第一个是文件名,在文件创建的时候使用,文件名不可以包含路径,所有文件都默认存储到/data/data/<package name>/files/目录下;
+第二个参数是文件的操作模式,主要有MODE_PRIVATE和MODE_APPEND两种模式可选,默认是MODE_PRIVATE,表示当指定相同文件名时,所写入的内容将会覆盖源文件中的内容,而MODE_APPEND则表示如果该文件已存在,就往文件里面追加内容.
+#### 写入
+```
+  private fun onSave(intputText: String) {
+        try {
+            val output = openFileOutput("data", Context.MODE_PRIVATE)
+            val writer = BufferedWriter(OutputStreamWriter(output))
+            writer.use {
+                it.write(intputText)
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+```
+#### 读取
+```
+private fun load(): String {
+    val content = StringBuilder()
+    try {
+        val input = openFileInput("data")
+        val reader = BufferedReader(InputStreamReader(input))
+        reader.use {
+            reader.forEachLine { content.append(it) }
+        }
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+    return content.toString()
+}
+```
+### SharedPreferences
+文件保存在/data/data/<package name>/shared_prefs/目录下
+#### 写入
+```
+ private fun onSaveSharedPreferences() {
+        val editor = getSharedPreferences("data", Context.MODE_PRIVATE).edit()
+        editor.putString("name", "Tom")
+        editor.putInt("age", 28)
+        editor.putBoolean("married", false)
+        editor.apply()
+    }
+```
+#### 读取
+第二个参数是默认值
+```
+    private fun onLoadSharedPreferences() {
+        val prefs = getSharedPreferences("data", Context.MODE_PRIVATE)
+        prefs.getString("name", "")
+        prefs.getInt("age", 0)
+        prefs.getBoolean("married", false)
+    }
+```
+### SQLite数据库存储
+数据库文件存放在/data/data/<pageage name>/databases/目录下
+#### SQLite创建数据库和增删查改
+```
+class MyDatabaseHelper(val context: Context, name: String, version:Int) : SQLiteOpenHelper(context, name, null, version) {
+    private val createBook = "create table Book (" +
+            " id integer primary key autoincrement," +
+            "author text," +
+            "price real," +
+            "pages integer," +
+            "name text)"
+    override fun onCreate(db: SQLiteDatabase?) {
+        //创建数据库
+        db?.execSQL(createBook)
+        Toast.makeText(context, "Create succeeded", Toast.LENGTH_SHORT).show()
+    }
+
+    ///更新表,只要传入的version大于之前的version,这个方法就会执行.
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        //删除数据库
+        db?.execSQL("drop table if exists Books")
+        db?.execSQL("drop table if exists Category")
+        onCreate(db)
+    }
+
+    // 插入
+    fun insert() {
+        val db = writableDatabase
+        val value1 = ContentValues().apply {
+            put("name", "The Da Vinci Code")
+            put("author", "Dan Brown")
+            put("pages", 454)
+            put("price", 16.96)
+        }
+        db.insert("Book", null, value1)
+        val value2 = ContentValues().apply {
+            put("name", "The Lost Symbol")
+            put("author", "Dan Brown")
+            put("pages", 510)
+            put("price", 19.95)
+        }
+        db.insert("Book", null, value2)
+    }
+
+    //更新
+    fun update() {
+        val db = writableDatabase
+        val values = ContentValues()
+        values.put("price", 10.99)
+        db.update("Book", values, "name = ?", arrayOf("The Da Vinci Code"))
+    }
+
+    //删除
+    fun delete() {
+        val db = writableDatabase
+        db.delete("Book", "page > ?", arrayOf("500"))
+    }
+
+    //查询
+    fun select() {
+        val db = writableDatabase
+        val cursor = db.query("Book", null,null,null,null,null,null)
+        if(cursor.moveToFirst()) {
+            do {
+                val name = cursor.getString(cursor.getColumnIndex("name"))
+                val author = cursor.getString(cursor.getColumnIndex("author"))
+                val pages = cursor.getInt(cursor.getColumnIndex("pages"))
+                val price = cursor.getDouble(cursor.getColumnIndex("price"))
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+    }
+}
+```

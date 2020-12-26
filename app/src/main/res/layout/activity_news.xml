@@ -8,6 +8,6 @@
         android:id="@+id/newsTitleFrag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.logic.demo.learn.android.news.fragment.NewsTitleFragment"
+        android:name="com.logic.demo.learn.android.demo.news.fragment.NewsTitleFragment"
         />
 </FrameLayout>

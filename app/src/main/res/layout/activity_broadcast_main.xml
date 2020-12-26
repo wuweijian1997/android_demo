@@ -3,10 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <fragment
-        android:id="@+id/newsContentFrag"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.logic.demo.learn.android.demo.news.fragment.NewsContentFragment"
+    <Button
+        android:id="@+id/forceOffline"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:text="forceOffline"
         />
+
 </LinearLayout>

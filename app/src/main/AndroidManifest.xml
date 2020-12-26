@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.logic.demo">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,8 +12,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".learn.android.news.NewsContentActivity"></activity>
-        <activity android:name=".learn.android.news.ActivityNews"></activity>
+        <activity android:name="com.logic.demo.learn.android.demo.broadcast.BroadcastMainActivity"></activity>
+        <activity android:name="com.logic.demo.learn.android.demo.broadcast.LoginActivity" />
+
+        <receiver
+            android:name=".learn.android.receiver.BootCompleteReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".learn.android.receiver.MyBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="100">
+                <action android:name="com.logic.demo.MY_BROADCAST" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".learn.android.receiver.AnotherBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.logic.demo.MY_BROADCAST" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="com.logic.demo.learn.android.demo.news.NewsContentActivity" />
+        <activity android:name="com.logic.demo.learn.android.demo.news.ActivityNews" />
         <activity android:name=".learn.android.layout.ListViewDemo" />
         <activity android:name=".learn.android.layout.RecyclerViewDemo" />
         <activity android:name=".learn.android.layout.RelativeLayout" />
