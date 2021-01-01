@@ -7,14 +7,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.logic.demo.learn.android.database.MyDatabaseHelper
+import com.logic.demo.learn.android.demo.audio.AudioActivity
 import com.logic.demo.learn.android.demo.broadcast.LoginActivity
+import com.logic.demo.learn.android.demo.camera.CameraActivity
 import com.logic.demo.learn.android.demo.contacts.ContactsActivity
 import com.logic.demo.learn.android.fragment.FragmentDemo
 import com.logic.demo.learn.android.layout.ListViewDemo
 import com.logic.demo.learn.android.layout.RecyclerViewDemo
 import com.logic.demo.learn.android.layout.StaggeredGridDemo
 import com.logic.demo.learn.android.demo.news.ActivityNews
+import com.logic.demo.learn.android.demo.notification.NotificationActivity
 import com.logic.demo.learn.android.demo.runtime.permission.PermissionActivity
+import com.logic.demo.learn.android.demo.thread.ThreadActivity
+import com.logic.demo.learn.android.demo.video.VideoActivity
 import com.logic.demo.learn.android.receiver.TimeChangeReceiver
 import com.logic.demo.learn.lifecycle.DialogActivity
 import com.logic.demo.learn.lifecycle.NormalActivity
@@ -89,6 +94,28 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ContactsActivity::class.java)
             startActivity(intent)
         }
+        toNotification.setOnClickListener {
+            val intent = Intent(this, NotificationActivity::class.java)
+            startActivity(intent)
+        }
+        toTakePhoto.setOnClickListener {
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+        }
+        toAudio.setOnClickListener {
+            val intent = Intent(this, AudioActivity::class.java)
+            startActivity(intent)
+        }
+        toVideo.setOnClickListener {
+            val intent = Intent(this, VideoActivity::class.java)
+            startActivity(intent)
+        }
+
+        toThread.setOnClickListener {
+            val intent = Intent(this, ThreadActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 

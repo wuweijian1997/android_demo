@@ -14,7 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".learn.android.demo.contacts.ContactsActivity"/>
+        <activity android:name=".learn.android.demo.thread.ThreadActivity"></activity>
+        <activity android:name=".learn.android.demo.video.VideoActivity" />
+        <activity android:name=".learn.android.demo.audio.AudioActivity" />
+        <activity android:name=".learn.android.demo.camera.CameraActivity" />
+        <activity android:name=".learn.android.demo.notification.NotificationActivity" />
+        <activity android:name=".learn.android.demo.contacts.ContactsActivity" />
         <activity android:name=".learn.android.demo.runtime.permission.PermissionActivity" />
         <activity android:name=".learn.android.demo.broadcast.BroadcastMainActivity" />
         <activity android:name=".learn.android.demo.broadcast.LoginActivity" />
@@ -92,6 +97,16 @@
             </intent-filter>
             -->
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.logic.demo.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

@@ -1221,3 +1221,464 @@ class ContactsActivity : AppCompatActivity() {
         android:layout_height="match_parent"/>
 </LinearLayout>
 ```
+## 通知
+### 创建通知
+```
+val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    val channel = NotificationChannel("normal", "Normal", NotificationManager.IMPORTANCE_DEFAULT)
+    manager.createNotificationChannel(channel)
+}
+createNotification.setOnClickListener {
+    val notification = NotificationCompat.Builder(this, "normal")
+        .setContentTitle("This is content title")
+        .setContentText("This is content text")
+        .setSmallIcon(R.drawable.rem)
+        .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.rem))
+        .build()
+    manager.notify(1, notification)
+}
+```
+### 响应通知事件
+使用`PendingIntent`响应通知点击事件.
+```
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_notification)
+    val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val channel =
+            NotificationChannel("normal", "Normal", NotificationManager.IMPORTANCE_DEFAULT)
+        manager.createNotificationChannel(channel)
+    }
+    createNotification.setOnClickListener {
+        val intent = Intent(this, NotificationActivity::class.java)
+        val pi = PendingIntent.getActivity(this, 0, intent, 0)
+        val notification = NotificationCompat.Builder(this, "normal")
+            .setContentTitle("This is content title")
+            .setContentText("This is content text")
+            .setSmallIcon(R.drawable.rem)
+            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.rem))
+            .setContentIntent(pi)
+            .setAutoCancel(true)
+            .build()
+        manager.notify(1, notification)
+    }
+}
+```
+### 关闭通知
+分为自动关闭和手动关闭,自动关闭使用`setAutoCancel(true)`,通知会在点击后关闭,手动关闭使用`manager.cancel(1)`
+这里的1就是`manager.notify(1, notification)`的id 1
+```
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_notification)
+    val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    //手动关闭通知
+    manager.cancel(1)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val channel =
+            NotificationChannel("normal", "Normal", NotificationManager.IMPORTANCE_DEFAULT)
+
+        manager.createNotificationChannel(channel)
+    }
+    createNotification.setOnClickListener {
+        val intent = Intent(this, NotificationActivity::class.java)
+        val pi = PendingIntent.getActivity(this, 0, intent, 0)
+        val notification = NotificationCompat.Builder(this, "normal")
+            .setContentTitle("This is content title")
+            .setContentText("This is content text")
+            .setSmallIcon(R.drawable.rem)
+            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.rem))
+            .setContentIntent(pi)
+            //点击后自动关闭通知
+            .setAutoCancel(true)
+            .build()
+        manager.notify(1, notification)
+    }
+}
+```
+### 通知使用长文字或插入图片
+```
+//长文字
+.setStyle(NotificationCompat.BigTextStyle().bigText("This is content text.This is content text.This is content text.This is content text.This is content text.This is content text.This is content text.This is content text.This is content text."))
+//图片
+.setStyle(NotificationCompat.BigPictureStyle().bigPicture(
+    BitmapFactory.decodeResource(resources, R.drawable.rem)
+))
+```
+### 创建重要通知
+```
+val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    val channel2 =
+        NotificationChannel("important", "Important", NotificationManager.IMPORTANCE_HIGH)
+    manager.createNotificationChannel(channel2)
+}
+createImportantNotification.setOnClickListener {
+    val intent = Intent(this, NotificationActivity::class.java)
+    val pi = PendingIntent.getActivity(this, 0, intent, 0)
+    val notification = NotificationCompat.Builder(this, "important")
+        .setContentTitle("This is content title")
+        .setContentText("This is content text.")
+        .setSmallIcon(R.drawable.rem)
+        .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.rem))
+        .setContentIntent(pi)
+        //点击后自动关闭通知
+        .setAutoCancel(true)
+        .build()
+    manager.notify(2, notification)
+}
+```
+## 多媒体
+### 拍照和相册
+> activity_camera.xml
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <Button
+        android:id="@+id/takePhotoBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Take Photo"
+        />
+    <Button
+        android:id="@+id/fromAlbumBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="From Album"
+        />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        />
+</LinearLayout>
+```
+> CameraActivity.kt
+
+```
+class CameraActivity : AppCompatActivity() {
+    private val takePhoto = 1
+    private val fromAlbum = 2
+    lateinit var imageUri: Uri
+    lateinit var outputImage: File
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_camera)
+        takePhotoBtn.setOnClickListener {
+            outputImage = File(externalCacheDir, "output_image.jpg")
+            if (outputImage.exists()) {
+                outputImage.delete()
+            }
+            outputImage.createNewFile()
+            imageUri = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                FileProvider.getUriForFile(this, "com.logic.demo.fileProvider", outputImage)
+            } else {
+                Uri.fromFile(outputImage)
+            }
+            val intent = Intent("android.media.action.IMAGE_CAPTURE")
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+            startActivityForResult(intent, takePhoto)
+        }
+
+        fromAlbumBtn.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "image/*"
+            startActivityForResult(intent, fromAlbum)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            takePhoto -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri))
+                    imageView.setImageBitmap(rotateIfRequired(bitmap))
+                }
+            }
+            fromAlbum -> {
+                if(resultCode == Activity.RESULT_OK && data != null) {
+                    data.data?.let { uri ->
+                        val bitmap = getBitmapFromUri(uri)
+                        imageView.setImageBitmap(bitmap)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getBitmapFromUri(uri: Uri) = contentResolver.openFileDescriptor(uri, "r")?.use {
+        BitmapFactory.decodeFileDescriptor(it.fileDescriptor)
+    }
+
+    private fun rotateIfRequired(bitmap: Bitmap): Bitmap? {
+        val exif = ExifInterface(outputImage.path)
+        val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+        return when(orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> rotateBitmap(bitmap, 90)
+            ExifInterface.ORIENTATION_ROTATE_180 -> rotateBitmap(bitmap, 180)
+            ExifInterface.ORIENTATION_ROTATE_270 -> rotateBitmap(bitmap, 270)
+            else -> bitmap
+        }
+    }
+
+    private fun rotateBitmap(bitmap: Bitmap, degree: Int): Bitmap? {
+        val matrix = Matrix()
+        matrix.postRotate(degree.toFloat())
+        val rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+        //将不再需要的bitmap对象回收
+        bitmap.recycle()
+        return rotatedBitmap
+    }
+}
+```
+> AndroidManifest.xml
+
+```
+<application>
+ <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="com.logic.demo.fileProvider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/file_paths" />
+    </provider>
+</application>
+```
+> xml/file_paths.xml
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path
+        name="my_images"
+        path="/"
+        />
+</paths>
+```
+### 播放音频
+#### 常用控制方法
+- setDataSource 设置要播放的音频文件的位置
+- prepare 在开始播放之前调用,已完成准备工作
+- start 开始或继续播放
+- pause 赞同播放音频
+- reset 将MediaPlay对象重置到刚刚创建的状态
+- seekTo 从指定的位置开始播放音频
+- stop 停止播放音频.调用后的MediaPlay无法再播放音频
+- release 释放当前MediaPlay是否正在播放音频
+- getDuration 获取载入的音频文件的时长
+#### Example
+```
+private val mediaPlayer = MediaPlayer()
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_audio)
+    initMediaPlayer()
+    audioPlay.setOnClickListener {
+        if (!mediaPlayer.isPlaying) {
+            mediaPlayer.start()
+        }
+    }
+    audioPause.setOnClickListener {
+        if (mediaPlayer.isPlaying) {
+            mediaPlayer.pause()
+        }
+    }
+    audioStop.setOnClickListener {
+        if (mediaPlayer.isPlaying) {
+            mediaPlayer.reset()
+            initMediaPlayer()
+        }
+    }
+}
+
+private fun initMediaPlayer() {
+    val assetManager = assets
+    val fd = assetManager.openFd("music.mp3")
+    //设置要播放的音频文件的位置
+    mediaPlayer.setDataSource(fd.fileDescriptor, fd.startOffset, fd.length)
+    //在开始播放之前调用,已完成准备工作
+    mediaPlayer.prepare()
+}
+
+override fun onDestroy() {
+    super.onDestroy()
+    mediaPlayer.stop()
+    mediaPlayer.release()
+}
+```
+### 视频
+#### Video常用方法
+- setVideoPath 设置要播放的视频文件的位置
+- start 开始或继续播放视频
+- pause 暂停播放视频
+- resume 将视频从头开始播放
+- seekTo 从指定的位置开始播放视频
+- isPlaying 判断当前是否正在播放视频
+- getDuratiion 获取载入的视频文件的时长
+#### Example
+> VideoActivity.kt
+
+```
+ override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_video)
+    val uri = Uri.parse("android.resource://$packageName/${R.raw.video}")
+    videoView.setVideoURI(uri)
+    videoPlay.setOnClickListener {
+        if (!videoView.isPlaying) {
+            videoView.start()
+        }
+    }
+    videoPause.setOnClickListener {
+        if (videoView.isPlaying) {
+            videoView.pause()
+        }
+    }
+    videoReplay.setOnClickListener {
+        if(videoView.isPlaying) {
+            videoView.resume()
+        }
+    }
+}
+
+override fun onDestroy() {
+    super.onDestroy()
+    videoView.suspend()
+}
+```
+> activity_video.xml
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/videoPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play" />
+
+        <Button
+            android:id="@+id/videoPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pause" />
+
+        <Button
+            android:id="@+id/videoReplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Replay" />
+    </LinearLayout>
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+```
+## 多线程
+### 异步消息处理机制
+```
+class ThreadActivity : AppCompatActivity() {
+    val updateText = 1
+    val handle = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            when (msg.what) {
+                updateText -> threadText.text = "Nice to meet you"
+            }
+        }
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_thread)
+        changeTextBtn.setOnClickListener {
+            thread {
+                val msg = Message()
+                msg.what = updateText
+                handle.sendMessage(msg)
+            }
+        }
+
+    }
+}
+```
+#### Message
+Message是线程之间传递的消息,它可以在内部携带少量的信息,用于在不同线程之间传递数据.
+#### Handle
+Handle顾名思义也就是处理者的意思,它主要用于存放所有通过Handler发送消息.
+#### MessageQueue
+MessageQueue是消息队列的意思,它主要用于存放所有通过Handle发送的消息.
+#### Looper
+Looper是每个线程中的MessageQueue的关键,调用Looper的loop()方法后,就会进入一个无线循环中,
+然后每当发现MessageQueue中存在一条消息时,就会将它去除,并传递到Handle的handleMessage方法中.每个线程只会有一个Looper对象.
+### AsyncTask
+AsyncTask的三个泛型参数
+- Params 在执行AsyncTask时需要传入的参数,可用于在后台任务中使用.
+- Progress 在后台任务执行时,如果需要咋i界面显示当前的进度,则使用这里指定的泛型作为进度单位.
+- Result 当任务执行完毕后,如果需要对结果进行返回,则使用这里指定的泛型作为返回值的类型.
+#### Example
+调用`DownloadTask().execute()`
+```
+class DownloadTask : AsyncTask<Unit, Int, Boolean>() {
+    //这个方法会在后台任务执行之前调用,用于进行一些界面上的初始化操作,比如显示一个进度条对话框等.
+    override fun onPreExecute() {
+        //显示进度对话框
+//        progressDialog.show();
+    }
+    override fun doInBackground(vararg params: Unit?): Boolean {
+        return try {
+            while (true) {
+                val downloadProgress = doDownload()
+                publishProgress(downloadProgress)
+                if(downloadProgress >= 100) {
+                    break
+                }
+            }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    // demo代码
+    private fun doDownload(): Int {
+        return 0
+    }
+
+
+    override fun onProgressUpdate(vararg values: Int?) {
+//        progressDialog.setMessage("Download ${values[0]}")
+    }
+
+    override fun onPostExecute(result: Boolean?) {
+        //关闭对话框
+//        progressDialog.dismiss()
+        if(result == true) {
+//            Toast.makeText(context, "Download succeeded", Toast.LENGTH_SHORT).show()
+        } else {
+//            Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
+        }
+    }
+}
+```
