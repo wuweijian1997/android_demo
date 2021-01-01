@@ -1085,3 +1085,139 @@ class MyDatabaseHelper(val context: Context, name: String, version:Int) : SQLite
     }
 }
 ```
+
+## 运行时权限
+> AndroidManifest.xml
+
+```
+<uses-permission android:name="android.permission.CALL_PHONE" />
+```
+> PermissionActivity.kt
+
+```
+class PermissionActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_permission)
+        makeCall.setOnClickListener {
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), 1)
+            } else {
+                call()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode) {
+            1 -> {
+                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    call()
+                } else {
+                    Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun call() {
+        try {
+            val intent = Intent(Intent.ACTION_CALL)
+            intent.data = Uri.parse("tel:10086")
+            startActivity(intent)
+        } catch (e: SecurityException) {
+            e.printStackTrace()
+        }
+    }
+}
+```
+## ContentProvider 跨程序共享数据
+### 读取联系人
+> AndroidManifest.xml
+
+```
+<uses-permission android:name="android.permission.READ_CONTACTS" />
+```
+> ContactsActivity.kt
+
+```
+class ContactsActivity : AppCompatActivity() {
+    private val contactsList = ArrayList<String>()
+    private lateinit var adapter: ArrayAdapter<String>
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_contacts)
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, contactsList)
+        contactsView.adapter = adapter
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_CONTACTS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS), 1)
+        } else {
+            readContacts()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode) {
+            1 -> {
+                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    readContacts()
+                } else {
+                    Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+
+    private fun readContacts() {
+        contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null,
+            null,
+            null,
+            null
+        )?.apply {
+            while (moveToNext()) {
+                val displayName = getString(
+                    getColumnIndex(
+                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME
+                    )
+                )
+                val number = getString(getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                contactsList.add("$displayName\n $number")
+            }
+            adapter.notifyDataSetChanged()
+            close()
+        }
+    }
+}
+```
+> activity_contacts.xml
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/contactsView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
+```
