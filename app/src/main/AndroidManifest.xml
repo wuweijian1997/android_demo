@@ -4,6 +4,8 @@
     package="com.logic.demo">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -12,8 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.logic.demo.learn.android.demo.broadcast.BroadcastMainActivity"></activity>
-        <activity android:name="com.logic.demo.learn.android.demo.broadcast.LoginActivity" />
+        <activity android:name=".learn.android.demo.contacts.ContactsActivity"/>
+        <activity android:name=".learn.android.demo.runtime.permission.PermissionActivity" />
+        <activity android:name=".learn.android.demo.broadcast.BroadcastMainActivity" />
+        <activity android:name=".learn.android.demo.broadcast.LoginActivity" />
 
         <receiver
             android:name=".learn.android.receiver.BootCompleteReceiver"
@@ -40,8 +44,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.logic.demo.learn.android.demo.news.NewsContentActivity" />
-        <activity android:name="com.logic.demo.learn.android.demo.news.ActivityNews" />
+        <activity android:name=".learn.android.demo.news.NewsContentActivity" />
+        <activity android:name=".learn.android.demo.news.ActivityNews" />
         <activity android:name=".learn.android.layout.ListViewDemo" />
         <activity android:name=".learn.android.layout.RecyclerViewDemo" />
         <activity android:name=".learn.android.layout.RelativeLayout" />

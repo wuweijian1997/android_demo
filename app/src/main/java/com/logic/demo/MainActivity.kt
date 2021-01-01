@@ -8,11 +8,13 @@ import android.os.Bundle
 import android.util.Log
 import com.logic.demo.learn.android.database.MyDatabaseHelper
 import com.logic.demo.learn.android.demo.broadcast.LoginActivity
+import com.logic.demo.learn.android.demo.contacts.ContactsActivity
 import com.logic.demo.learn.android.fragment.FragmentDemo
 import com.logic.demo.learn.android.layout.ListViewDemo
 import com.logic.demo.learn.android.layout.RecyclerViewDemo
 import com.logic.demo.learn.android.layout.StaggeredGridDemo
 import com.logic.demo.learn.android.demo.news.ActivityNews
+import com.logic.demo.learn.android.demo.runtime.permission.PermissionActivity
 import com.logic.demo.learn.android.receiver.TimeChangeReceiver
 import com.logic.demo.learn.lifecycle.DialogActivity
 import com.logic.demo.learn.lifecycle.NormalActivity
@@ -79,14 +81,23 @@ class MainActivity : AppCompatActivity() {
         createDatabase.setOnClickListener {
             dbHelper.writableDatabase
         }
+        permission.setOnClickListener {
+            val intent = Intent(this, PermissionActivity::class.java)
+            startActivity(intent)
+        }
+        getContacts.setOnClickListener {
+            val intent = Intent(this, ContactsActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
-    private fun onSave(intputText: String) {
+    private fun onSave(inputText: String) {
         try {
             val output = openFileOutput("data", Context.MODE_PRIVATE)
             val writer = BufferedWriter(OutputStreamWriter(output))
             writer.use {
-                it.write(intputText)
+                it.write(inputText)
             }
         } catch (e: IOException) {
             e.printStackTrace()
