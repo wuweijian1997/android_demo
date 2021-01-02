@@ -9,6 +9,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.logic.demo.R
+import com.logic.demo.learn.android.service.MyIntentService
 import com.logic.demo.learn.android.service.MyService
 import kotlinx.android.synthetic.main.activity_service.*
 

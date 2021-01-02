@@ -1,4 +1,4 @@
-package com.logic.demo.learn.android.demo.service
+package com.logic.demo.learn.android.service
 
 import android.app.IntentService
 import android.content.Intent

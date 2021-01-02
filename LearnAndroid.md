@@ -1682,3 +1682,5 @@ class DownloadTask : AsyncTask<Unit, Int, Boolean>() {
     }
 }
 ```
+## Service
+[Service](https://github.com/wuweijian1997/android_demo/blob/main/app/src/main/java/com/logic/demo/learn/android/demo/service/ServiceActivity.kt)

@@ -22,7 +22,7 @@
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".learn.android.demo.service.MyIntentService"
+            android:name=".learn.android.service.MyIntentService"
             android:enabled="true"
             android:exported="true" />
 
