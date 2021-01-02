@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".learn.android.demo.material.MaterialActivity"
+            android:theme="@style/HideAppBar"
+            android:label="Fruits"
+            />
+        <activity android:name=".learn.android.demo.webview.WebviewActivity" />
         <activity android:name=".learn.android.demo.service.ServiceActivity" />
 
         <service

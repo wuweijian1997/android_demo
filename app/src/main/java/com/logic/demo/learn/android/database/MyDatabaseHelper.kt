@@ -4,15 +4,18 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import android.widget.Toast
 
-class MyDatabaseHelper(val context: Context, name: String, version:Int) : SQLiteOpenHelper(context, name, null, version) {
+class MyDatabaseHelper(val context: Context, name: String, version: Int) :
+    SQLiteOpenHelper(context, name, null, version) {
     private val createBook = "create table Book (" +
             " id integer primary key autoincrement," +
             "author text," +
             "price real," +
             "pages integer," +
             "name text)"
+
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(createBook)
         Toast.makeText(context, "Create succeeded", Toast.LENGTH_SHORT).show()
@@ -61,13 +64,14 @@ class MyDatabaseHelper(val context: Context, name: String, version:Int) : SQLite
     //查询
     fun select() {
         val db = writableDatabase
-        val cursor = db.query("Book", null,null,null,null,null,null)
-        if(cursor.moveToFirst()) {
+        val cursor = db.query("Book", null, null, null, null, null, null)
+        if (cursor.moveToFirst()) {
             do {
                 val name = cursor.getString(cursor.getColumnIndex("name"))
                 val author = cursor.getString(cursor.getColumnIndex("author"))
                 val pages = cursor.getInt(cursor.getColumnIndex("pages"))
                 val price = cursor.getDouble(cursor.getColumnIndex("price"))
+                Log.d("select", "name:$name, author: $author, pages: $pages, price: $price")
             } while (cursor.moveToNext())
         }
         cursor.close()

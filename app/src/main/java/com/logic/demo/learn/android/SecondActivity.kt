@@ -40,7 +40,7 @@ class SecondActivity : AppCompatActivity() {
         fun actionStart(context: Context, data1: String, data2: String) {
             val intent = Intent(context, SecondActivity::class.java)
             intent.putExtra("param1",data1)
-            intent.putExtra("param2",data1)
+            intent.putExtra("param2",data2)
             context.startActivity(intent)
 
         }

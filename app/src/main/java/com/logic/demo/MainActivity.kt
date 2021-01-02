@@ -11,6 +11,7 @@ import com.logic.demo.learn.android.demo.audio.AudioActivity
 import com.logic.demo.learn.android.demo.broadcast.LoginActivity
 import com.logic.demo.learn.android.demo.camera.CameraActivity
 import com.logic.demo.learn.android.demo.contacts.ContactsActivity
+import com.logic.demo.learn.android.demo.material.MaterialActivity
 import com.logic.demo.learn.android.fragment.FragmentDemo
 import com.logic.demo.learn.android.layout.ListViewDemo
 import com.logic.demo.learn.android.layout.RecyclerViewDemo
@@ -21,6 +22,7 @@ import com.logic.demo.learn.android.demo.runtime.permission.PermissionActivity
 import com.logic.demo.learn.android.demo.service.ServiceActivity
 import com.logic.demo.learn.android.demo.thread.ThreadActivity
 import com.logic.demo.learn.android.demo.video.VideoActivity
+import com.logic.demo.learn.android.demo.webview.WebviewActivity
 import com.logic.demo.learn.android.receiver.TimeChangeReceiver
 import com.logic.demo.learn.lifecycle.DialogActivity
 import com.logic.demo.learn.lifecycle.NormalActivity
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState != null) {
             ///恢复数据
             val tempData = savedInstanceState.getString("data_key")
-            Log.d(tag, tempData)
+            Log.d(tag, tempData )
         }
         startNormalActivity.setOnClickListener {
             val intent = Intent(this, NormalActivity::class.java)
@@ -118,6 +120,15 @@ class MainActivity : AppCompatActivity() {
         }
         toService.setOnClickListener {
             val intent = Intent(this, ServiceActivity::class.java)
+            startActivity(intent)
+        }
+        toWebView.setOnClickListener {
+            val intent = Intent(this, WebviewActivity::class.java)
+            startActivity(intent)
+        }
+
+        toMaterial.setOnClickListener {
+            val intent = Intent(this, MaterialActivity::class.java)
             startActivity(intent)
         }
 
