@@ -18,6 +18,7 @@ import com.logic.demo.learn.android.layout.StaggeredGridDemo
 import com.logic.demo.learn.android.demo.news.ActivityNews
 import com.logic.demo.learn.android.demo.notification.NotificationActivity
 import com.logic.demo.learn.android.demo.runtime.permission.PermissionActivity
+import com.logic.demo.learn.android.demo.service.ServiceActivity
 import com.logic.demo.learn.android.demo.thread.ThreadActivity
 import com.logic.demo.learn.android.demo.video.VideoActivity
 import com.logic.demo.learn.android.receiver.TimeChangeReceiver
@@ -113,6 +114,10 @@ class MainActivity : AppCompatActivity() {
 
         toThread.setOnClickListener {
             val intent = Intent(this, ThreadActivity::class.java)
+            startActivity(intent)
+        }
+        toService.setOnClickListener {
+            val intent = Intent(this, ServiceActivity::class.java)
             startActivity(intent)
         }
 
