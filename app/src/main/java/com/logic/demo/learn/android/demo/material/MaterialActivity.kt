@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.logic.demo.R
 import kotlinx.android.synthetic.main.activity_material.*
+import kotlin.concurrent.thread
 
 class MaterialActivity : AppCompatActivity() {
     val fruits = mutableListOf<Fruit>(
@@ -53,6 +54,22 @@ class MaterialActivity : AppCompatActivity() {
 
                 }.show()
         }
+        // 下拉刷新
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary)
+        swipeRefresh.setOnRefreshListener {
+            refreshFruits(adapter)
+        }
+    }
+
+    private fun refreshFruits(adapter: FruitAdapter) {
+        thread {
+            Thread.sleep(2000)
+            runOnUiThread {
+                initFruits()
+                adapter.notifyDataSetChanged()
+                swipeRefresh.isRefreshing = false
+            }
+        }
     }
 
     private fun initFruits() {
@@ -62,6 +79,7 @@ class MaterialActivity : AppCompatActivity() {
             fruitList.add(fruits[index])
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar, menu)

@@ -11,6 +11,7 @@ import com.logic.demo.learn.android.demo.audio.AudioActivity
 import com.logic.demo.learn.android.demo.broadcast.LoginActivity
 import com.logic.demo.learn.android.demo.camera.CameraActivity
 import com.logic.demo.learn.android.demo.contacts.ContactsActivity
+import com.logic.demo.learn.android.demo.jetpack.viewmodel.ViewModelActivity
 import com.logic.demo.learn.android.demo.material.MaterialActivity
 import com.logic.demo.learn.android.fragment.FragmentDemo
 import com.logic.demo.learn.android.layout.ListViewDemo
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState != null) {
             ///恢复数据
             val tempData = savedInstanceState.getString("data_key")
-            Log.d(tag, tempData )
+            Log.d(tag, tempData?:"")
         }
         startNormalActivity.setOnClickListener {
             val intent = Intent(this, NormalActivity::class.java)
@@ -129,6 +130,11 @@ class MainActivity : AppCompatActivity() {
 
         toMaterial.setOnClickListener {
             val intent = Intent(this, MaterialActivity::class.java)
+            startActivity(intent)
+        }
+
+        toViewModel.setOnClickListener {
+            val intent = Intent(this, ViewModelActivity::class.java)
             startActivity(intent)
         }
 

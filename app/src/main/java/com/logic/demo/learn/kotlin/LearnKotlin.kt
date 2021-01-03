@@ -1,7 +1,6 @@
 package com.logic.demo.learn.kotlin
 
 fun main() {
-    val str: String = "Hello World"
     println("Hello Kotlin")
 }
 
@@ -12,10 +11,10 @@ fun main() {
 
 fun max(num1: Int, num2: Int): Int {
     var value = 0
-    if(num1 > num2) {
-        value = num1
+    value = if(num1 > num2) {
+        num1
     } else {
-        value = num2
+        num2
     }
     return value
 }

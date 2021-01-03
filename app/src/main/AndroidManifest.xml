@@ -16,11 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".learn.android.demo.jetpack.viewmodel.ViewModelActivity"></activity>
+        <activity
+            android:name=".learn.android.demo.material.FruitActivity"
+            android:theme="@style/HideAppBar" />
         <activity
             android:name=".learn.android.demo.material.MaterialActivity"
-            android:theme="@style/HideAppBar"
             android:label="Fruits"
-            />
+            android:theme="@style/HideAppBar" />
         <activity android:name=".learn.android.demo.webview.WebviewActivity" />
         <activity android:name=".learn.android.demo.service.ServiceActivity" />
 

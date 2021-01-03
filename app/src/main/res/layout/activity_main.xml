@@ -145,6 +145,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Material" />
+            <Button
+                android:id="@+id/toViewModel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ViewModel" />
 
 
         </LinearLayout>
