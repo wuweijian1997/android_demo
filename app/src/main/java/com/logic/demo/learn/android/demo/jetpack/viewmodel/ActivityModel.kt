@@ -1,8 +1,7 @@
 package com.logic.demo.learn.android.demo.jetpack.viewmodel
 
 import androidx.lifecycle.*
-
-data class User(var firstName: String, var lastName: String, var age: Int)
+import com.logic.demo.learn.android.demo.jetpack.room.User
 
 class ActivityModel(countReserved: Int) : ViewModel() {
     private val _counter = MutableLiveData<Int>()
@@ -28,7 +27,7 @@ class ActivityModel(countReserved: Int) : ViewModel() {
 
     private val userIdLiveData = MutableLiveData<String>()
 
-    val user: LiveData<User> = Transformations.switchMap(userIdLiveData) {userId ->
+    val user: LiveData<User> = Transformations.switchMap(userIdLiveData) { userId ->
         Repository.getUser(userId)
     }
 

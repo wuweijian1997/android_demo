@@ -1,4 +1,4 @@
-package com.logic.demo.learn.android.demo.jetpack.viewmodel.room
+package com.logic.demo.learn.android.demo.jetpack.room
 
 import androidx.room.*
 
