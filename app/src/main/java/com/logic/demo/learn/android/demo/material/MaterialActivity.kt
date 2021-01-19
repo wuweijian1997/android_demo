@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.logic.demo.R
+import com.logic.demo.learn.android.extension.showToast
 import kotlinx.android.synthetic.main.activity_material.*
 import kotlin.concurrent.thread
 
@@ -47,10 +48,9 @@ class MaterialActivity : AppCompatActivity() {
             true
         }
         fab.setOnClickListener {
-//            Toast.makeText(this, "FAB clicked", Toast.LENGTH_SHORT).show()
             Snackbar.make(it, "Data deleted", Snackbar.LENGTH_SHORT)
                 .setAction("Undo") {
-                    Toast.makeText(this, "Data restored", Toast.LENGTH_SHORT).show()
+                    "Data restored".showToast()
 
                 }.show()
         }
@@ -88,9 +88,9 @@ class MaterialActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.backup -> Toast.makeText(this, "You clicked Backup", Toast.LENGTH_SHORT).show()
-            R.id.delete -> Toast.makeText(this, "You clicked Delete", Toast.LENGTH_SHORT).show()
-            R.id.settings -> Toast.makeText(this, "You clicked Settings", Toast.LENGTH_SHORT).show()
+            R.id.backup -> "You clicked Backup".showToast()
+            R.id.delete -> "You clicked Delete".showToast()
+            R.id.settings -> "You clicked Settings".showToast()
             android.R.id.home -> drawerLayout.openDrawer(GravityCompat.START)
         }
         return true

@@ -7,6 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.logic.demo.R
+import com.logic.demo.learn.android.extension.showToast
 
 class RecyclerViewAdapter(private val fruitList: List<String>) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
@@ -28,12 +29,12 @@ class RecyclerViewAdapter(private val fruitList: List<String>) :
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
             val fruit = fruitList[position]
-            Toast.makeText(parent.context, "You clicked view: $fruit", Toast.LENGTH_SHORT).show()
+            "You clicked view: $fruit".showToast()
         }
         viewHolder.fruitName.setOnClickListener {
             val position = viewHolder.adapterPosition
             val fruit = fruitList[position]
-            Toast.makeText(parent.context, "You clicked fruit name: $fruit", Toast.LENGTH_SHORT).show()
+            "You clicked fruit name: $fruit".showToast()
         }
         return viewHolder
     }

@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import android.widget.Toast
+import com.logic.demo.learn.android.extension.showToast
 
 class MyDatabaseHelper(val context: Context, name: String, version: Int) :
     SQLiteOpenHelper(context, name, null, version) {
@@ -18,7 +19,7 @@ class MyDatabaseHelper(val context: Context, name: String, version: Int) :
 
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(createBook)
-        Toast.makeText(context, "Create succeeded", Toast.LENGTH_SHORT).show()
+        "Create succeeded".showToast()
     }
 
     ///更新表,只要传入的version大于之前的version,这个方法就会执行.

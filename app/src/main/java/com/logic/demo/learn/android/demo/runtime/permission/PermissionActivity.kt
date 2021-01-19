@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.logic.demo.R
+import com.logic.demo.learn.android.extension.showToast
 import kotlinx.android.synthetic.main.activity_permission.*
 
 class PermissionActivity : AppCompatActivity() {
@@ -36,7 +37,7 @@ class PermissionActivity : AppCompatActivity() {
                 if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     call()
                 } else {
-                    Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show()
+                    "You denied the permission".showToast()
                 }
             }
         }

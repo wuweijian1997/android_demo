@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.logic.demo.R
+import com.logic.demo.learn.android.extension.showToast
 import kotlinx.android.synthetic.main.custom_layout_demo.view.*
 
 class CustomLayout(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs) {
@@ -17,7 +18,7 @@ class CustomLayout(context: Context, attrs: AttributeSet) : LinearLayout(context
             activity.finish()
         }
         customEdit.setOnClickListener {
-            Toast.makeText(context, "You clicked Edit button", Toast.LENGTH_SHORT).show()
+            "You clicked Edit button".showToast()
         }
     }
 }

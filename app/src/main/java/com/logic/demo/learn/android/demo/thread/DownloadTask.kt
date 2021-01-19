@@ -2,6 +2,7 @@ package com.logic.demo.learn.android.demo.thread
 
 import android.os.AsyncTask
 import android.widget.Toast
+import com.logic.demo.learn.android.extension.showToast
 import java.lang.Exception
 
 class DownloadTask : AsyncTask<Unit, Int, Boolean>() {
@@ -10,12 +11,13 @@ class DownloadTask : AsyncTask<Unit, Int, Boolean>() {
         //显示进度对话框
 //        progressDialog.show();
     }
+
     override fun doInBackground(vararg params: Unit?): Boolean {
         return try {
             while (true) {
                 val downloadProgress = doDownload()
                 publishProgress(downloadProgress)
-                if(downloadProgress >= 100) {
+                if (downloadProgress >= 100) {
                     break
                 }
             }
@@ -38,10 +40,10 @@ class DownloadTask : AsyncTask<Unit, Int, Boolean>() {
     override fun onPostExecute(result: Boolean?) {
         //关闭对话框
 //        progressDialog.dismiss()
-        if(result == true) {
-//            Toast.makeText(context, "Download succeeded", Toast.LENGTH_SHORT).show()
+        if (result == true) {
+            "Download succeeded".showToast()
         } else {
-//            Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
+            "Download failed".showToast()
         }
     }
 }

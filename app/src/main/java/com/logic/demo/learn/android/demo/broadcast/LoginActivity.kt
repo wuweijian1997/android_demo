@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.logic.demo.R
+import com.logic.demo.learn.android.extension.showToast
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity() {
@@ -17,7 +18,7 @@ class LoginActivity : BaseActivity() {
                 val intent = Intent(this, BroadcastMainActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "account or password is invalid", Toast.LENGTH_SHORT).show()
+                "account or password is invalid".showToast()
             }
         }
     }
