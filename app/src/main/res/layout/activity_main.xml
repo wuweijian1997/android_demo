@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.logic.demo.learn.android.layout.CustomLayout
+    <!--<com.logic.demo.learn.android.layout.CustomLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -15,35 +14,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello World!"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/startNormalActivity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Start NormalActivity" />
-
-            <Button
-                android:id="@+id/startDialogActivity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Start DialogActivity" />
-
-            <Button
-                android:id="@+id/startListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Start ListView" />
 
             <Button
                 android:id="@+id/startRecyclerView"
@@ -64,12 +36,6 @@
                 android:text="Start Fragment" />
 
             <Button
-                android:id="@+id/startNews"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Start News" />
-
-            <Button
                 android:id="@+id/myBroadcastReceiver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,72 +52,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="创建数据库" />
-
-            <Button
-                android:id="@+id/permission"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="权限" />
-
-            <Button
-                android:id="@+id/getContacts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="联系人 ContentProvider" />
-
-            <Button
-                android:id="@+id/toNotification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="通知 Notification" />
-
-            <Button
-                android:id="@+id/toTakePhoto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="拍照 Camera" />
-
-            <Button
-                android:id="@+id/toAudio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="音频 Audio" />
-
-            <Button
-                android:id="@+id/toVideo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="视频 Video" />
-
-            <Button
-                android:id="@+id/toThread"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Thread" />
-
-            <Button
-                android:id="@+id/toService"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Service" />
-
-            <Button
-                android:id="@+id/toWebView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="WebView" />
-            <Button
-                android:id="@+id/toMaterial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Material" />
-            <Button
-                android:id="@+id/toViewModel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ViewModel" />
-
-
         </LinearLayout>
-    </ScrollView>
+    </ScrollView>-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/homePageList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

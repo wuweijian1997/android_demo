@@ -2,10 +2,9 @@ package com.logic.demo.learn.android.layout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.logic.demo.R
-import com.logic.demo.learn.android.adapter.RecyclerViewAdapter
+import com.logic.demo.ui.adapter.RecyclerViewAdapter
 import kotlinx.android.synthetic.main.recycler_view_demo.*
 
 ///瀑布流

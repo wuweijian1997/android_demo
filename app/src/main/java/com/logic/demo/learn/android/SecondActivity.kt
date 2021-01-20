@@ -23,8 +23,8 @@ class SecondActivity : AppCompatActivity() {
                intent.putExtra("data_return", "Hello FirstActivity")
                setResult(Activity.RESULT_OK, intent)
                finish()*/
-            val intent = Intent(this, ThirdActivity::class.java)
-            startActivity(intent)
+      /*      val intent = Intent(this, ThirdActivity::class.java)
+            startActivity(intent)*/
         }
     }
 

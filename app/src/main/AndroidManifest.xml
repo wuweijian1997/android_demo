@@ -10,13 +10,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".learn.android.demo.jetpack.JetpackActivity"></activity>
+        <activity android:name=".ui.page.ViewBindingActivity"></activity>
+        <activity android:name=".learn.android.demo.jetpack.JetpackActivity" />
         <activity
             android:name=".learn.android.demo.material.FruitActivity"
             android:theme="@style/HideAppBar" />
@@ -73,10 +75,7 @@
 
         <activity android:name=".learn.android.demo.news.NewsContentActivity" />
         <activity android:name=".learn.android.demo.news.ActivityNews" />
-        <activity android:name=".learn.android.layout.ListViewDemo" />
         <activity android:name=".learn.android.layout.RecyclerViewDemo" />
-        <activity android:name=".learn.android.layout.RelativeLayout" />
-        <activity android:name=".learn.android.layout.LinearLayout" />
         <activity android:name=".learn.android.layout.StaggeredGridDemo" />
         <activity android:name=".learn.android.fragment.FragmentDemo" />
         <activity android:name=".MainActivity">
@@ -86,10 +85,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".learn.lifecycle.DialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity android:name=".learn.lifecycle.NormalActivity" />
         <activity android:name=".learn.android.ThirdActivity">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />

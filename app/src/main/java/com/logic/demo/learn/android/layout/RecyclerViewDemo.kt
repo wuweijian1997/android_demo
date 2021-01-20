@@ -2,12 +2,9 @@ package com.logic.demo.learn.android.layout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.logic.demo.learn.android.adapter.FruitAdapter
 import com.logic.demo.R
-import com.logic.demo.learn.android.adapter.RecyclerViewAdapter
-import kotlinx.android.synthetic.main.list_view_demo.*
+import com.logic.demo.ui.adapter.RecyclerViewAdapter
 import kotlinx.android.synthetic.main.recycler_view_demo.*
 
 class RecyclerViewDemo : AppCompatActivity() {
