@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.logic.demo.R
 import com.logic.demo.model.PageItem
+import com.logic.demo.util.ColorUtil
 import java.util.*
 
 class HomeGridAdapter(private val pageList: List<PageItem<AppCompatActivity>>) :
@@ -21,8 +22,6 @@ class HomeGridAdapter(private val pageList: List<PageItem<AppCompatActivity>>) :
         val homePageItem: TextView = view.findViewById(R.id.homePageItemText)
         val homePageCard: MaterialCardView = view.findViewById(R.id.homePageCard)
     }
-    private val random: Random = Random()
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -44,8 +43,8 @@ class HomeGridAdapter(private val pageList: List<PageItem<AppCompatActivity>>) :
         val pageItem = pageList[position]
         holder.homePageItem.text = pageItem.title
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val randomColor = Color.valueOf(random.nextFloat() * 150, random.nextFloat() * 150, random.nextFloat() * 150)
-            holder.homePageCard.setBackgroundColor(randomColor.toArgb())
+            val randomColor = ColorUtil.randomColor()
+            holder.homePageCard.setCardBackgroundColor(randomColor)
         }
     }
 

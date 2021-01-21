@@ -3,57 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <!--<com.logic.demo.learn.android.layout.CustomLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/startRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Start RecyclerView" />
-
-            <Button
-                android:id="@+id/startStaggeredGrid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Start StaggeredGrid" />
-
-            <Button
-                android:id="@+id/startFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Start Fragment" />
-
-            <Button
-                android:id="@+id/myBroadcastReceiver"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="广播" />
-
-            <Button
-                android:id="@+id/broadcastOffline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="广播下线通知" />
-
-            <Button
-                android:id="@+id/createDatabase"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="创建数据库" />
-        </LinearLayout>
-    </ScrollView>-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homePageList"
         android:layout_width="match_parent"

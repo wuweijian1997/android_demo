@@ -16,6 +16,7 @@ import com.logic.demo.learn.android.demo.webview.WebviewActivity
 import com.logic.demo.learn.android.layout.RecyclerViewDemo
 import com.logic.demo.learn.android.layout.StaggeredGridDemo
 import com.logic.demo.model.PageItem
+import com.logic.demo.ui.page.IntentActivity
 import com.logic.demo.ui.page.ViewBindingActivity
 
 val homePageList = listOf<PageItem<AppCompatActivity>>(
@@ -33,5 +34,6 @@ val homePageList = listOf<PageItem<AppCompatActivity>>(
     PageItem("WebView", WebviewActivity::class.java),
     PageItem("Material", MaterialActivity::class.java),
     PageItem("ViewModel", JetpackActivity::class.java),
-    PageItem("ViewBinding", ViewBindingActivity::class.java)
+    PageItem("ViewBinding", ViewBindingActivity::class.java),
+    PageItem("Intent", IntentActivity::class.java)
 )

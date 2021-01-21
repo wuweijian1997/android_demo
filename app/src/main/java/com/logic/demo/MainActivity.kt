@@ -8,7 +8,6 @@ import com.logic.demo.databinding.ActivityMainBinding
 import com.logic.demo.ui.adapter.HomeGridAdapter
 
 class MainActivity : AppCompatActivity() {
-    private val tag = "MainActivity"
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

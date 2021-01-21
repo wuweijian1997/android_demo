@@ -2,6 +2,27 @@
 ## Intent
 Intent 是 Android程序中各组件之间进行交互的一种重要方式,它不仅可以指名当前组件想要执行的动作,还可以在不同组件之间传递数据.
 Intent一般可用于启动Activity,启动Service以及发送广播等场景.
+### 匹配规则
+[intent-filter的action，category，data匹配规则](https://juejin.cn/post/6844903553962606606#heading-5)
+
+#### Action的匹配规则
+Intent中的Action必须能够和Activity过滤规则中的Action匹配.
+一个过滤规则中有多个action,那么只要Intent中的action能够和Activity过滤规则中的任何一个action相同即可匹配成功。
+#### Category的匹配规则
+如果Intent中的存在category那么所有的category都必须和Activity过滤规则中的category相同。
+才能和这个Activity匹配。Intent中的category数量可能少于Activity中配置的category数量，
+但是Intent中的这category必须和Activity中配置的category相同才能匹配。
+#### Data的匹配规则
+- Scheme：URI的模式。如果URI中没有指定Scheme.那么整个URI无效。默认值为content 和 file。
+- Host：URI的host。比如www.axe.com。如果指定了scheme和port，path等其他参数，但是host未指定，那么整个URI无效；
+如果只指定了scheme，没有指定host和其他参数，URI是有效的。可以这样理解：一个完整的URI
+            ：www.axe.com:500/profile/inf… 我将后面的prot 和path“:500/profile/info ”去掉，这个URI任然有效。如果我单独将www.axe.com            那这个URI就无效了。
+- Port：URI端口，当URI指定了scheme 和 host 参数时port参数才有意义。
+- Path：用来匹配完整的路径，如：example.com/blog/abc.ht…，这里将
+            path 设置为 /blog/abc.html 才能够进行匹配；
+- PathPrefix： 用来匹配路径的开头部分，拿上面的 Uri 来说，这里将 pathPrefix 设置为 /blog 就能进行匹配了；
+- PathPattern： 用表达式来匹配整个路径。
+
 ### 显示Intent
 ```
 button1.setOnClickListener{
@@ -179,7 +200,13 @@ class SecondActivity : AppCompatActivity() {
 每次启动该Activity时,系统会首先在返回栈中检查是否存在该Activity实例,如果发现已经存在则直接使用该实例,并把在这个Activity之上的所有其他Activity统统出栈,如果没有就会创建一个新的Activity实例.
 ### singleInstance
 Activity会启用一个新的返回栈来管理这个Activity.
-
+## 清除返回堆栈
+### alwaysRetainTaskState
+如果在任务的根 Activity 中将该属性设为 "true"，则不会发生上述默认行为。即使经过很长一段时间后，任务仍会在其堆栈中保留所有 Activity。
+### clearTaskOnLaunch (设置在MainActivity上)
+如果在任务的根 Activity 中将该属性设为 "true"，那么只要用户离开任务再返回，堆栈就会被清除到只剩根 Activity。也就是说，它与 alwaysRetainTaskState 正好相反。用户始终会返回到任务的初始状态，即便只是短暂离开任务也是如此。
+### finishOnTaskLaunch (可以设置在任何Activity上)
+该属性与 clearTaskOnLaunch 类似，但它只会作用于单个 Activity 而非整个任务。它还可导致任何 Activity 消失，包括根 Activity。如果将该属性设为 "true"，则 Activity 仅在当前会话中归属于任务。如果用户离开任务再返回，则该任务将不再存在。
 ## 启动Activity的最佳写法
 ```
 class SecondActivity : AppCompatActivity() {
