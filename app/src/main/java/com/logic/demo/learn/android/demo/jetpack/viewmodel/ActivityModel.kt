@@ -40,7 +40,6 @@ class ActivityModelFactory(private val countReserved: Int) : ViewModelProvider.F
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return ActivityModel(countReserved) as T
     }
-
 }
 
 object Repository {

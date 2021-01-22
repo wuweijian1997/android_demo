@@ -1,6 +1,7 @@
 package com.logic.demo.const
 
 import androidx.appcompat.app.AppCompatActivity
+import com.logic.demo.DataBindingActivity
 import com.logic.demo.learn.android.demo.audio.AudioActivity
 import com.logic.demo.learn.android.demo.camera.CameraActivity
 import com.logic.demo.learn.android.demo.contacts.ContactsActivity
@@ -37,5 +38,6 @@ val homePageList = listOf<PageItem<AppCompatActivity>>(
     PageItem("ViewModel", JetpackActivity::class.java),
     PageItem("ViewBinding", ViewBindingActivity::class.java),
     PageItem("Intent", IntentActivity::class.java),
-    PageItem("快捷方式", ShortcutActivity::class.java)
+    PageItem("快捷方式", ShortcutActivity::class.java),
+    PageItem("DataBinding", DataBindingActivity::class.java)
 )

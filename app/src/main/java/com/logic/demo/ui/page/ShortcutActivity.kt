@@ -57,7 +57,7 @@ class ShortcutActivity : AppCompatActivity() {
                                     .setShortLabel(shortcut.shortLabel)
                                     .setLongLabel(shortcut.longLabel)
                                     .setIcon(Icon.createWithResource(this, shortcut.icon))
-                                    .setIntent(Intent(Intent.ACTION_VIEW, Uri.fromParts("", "", ""), this, shortcut.clazz))
+                                    .setIntent(Intent(Intent.ACTION_VIEW, null, this, shortcut.clazz))
                                     .build()
                             )
                         )

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="observableCount"
+            type="com.logic.demo.model.ObservableCount" />
+
+        <variable
+            name="viewModelCount"
+            type="com.logic.demo.model.ViewModelCount" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="@{String.valueOf(observableCount.count)}" />
+
+        <TextView
+            android:id="@+id/addCount"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="Plus One by Observable" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@{String.valueOf(viewModelCount.count)}" />
+
+        <TextView
+            android:id="@+id/viewModelBtn"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="Plus One by ViewModel" />
+    </LinearLayout>
+</layout>
