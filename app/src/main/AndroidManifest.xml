@@ -17,23 +17,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.page.ShortcutActivity"></activity>
         <activity android:name=".ui.page.ShareActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-                <category android:name = "android.intent.category.DEFAULT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.logic.demo" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.logic.com"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.page.IntentActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:alwaysRetainTaskState="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".ui.page.ViewBindingActivity"
             android:finishOnTaskLaunch="true" />
@@ -45,11 +48,13 @@
             android:name=".learn.android.demo.material.MaterialActivity"
             android:label="Fruits"
             android:theme="@style/HideAppBar" />
-        <activity android:name=".learn.android.demo.webview.WebviewActivity"
-            tools:ignore="AppLinkUrlError">
+        <activity android:name=".learn.android.demo.webview.WebviewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="https" />
             </intent-filter>
         </activity>
@@ -114,6 +119,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".learn.android.FirstActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:alwaysRetainTaskState="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"

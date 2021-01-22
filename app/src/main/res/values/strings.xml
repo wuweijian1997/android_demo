@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AndroidDemo</string>
+    <string name="shortcutRemShortLabel">Rem</string>
+    <string name="shortcutRemLongLabel">RemLongLabel</string>
+    <string name="shortcutRemDisabledMessage">RemDisabledMessage</string>
+    <string name="shortcutAppleShortLabel">App</string>
+    <string name="shortcutAppLongLabel">AppLongLabel</string>
+    <string name="shortcutAppDisabledMessage">AppDisabledMessage</string>
 </resources>

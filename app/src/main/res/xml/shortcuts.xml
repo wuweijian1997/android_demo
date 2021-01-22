@@ -1,0 +1,32 @@
+<shortcuts xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="rem"
+        android:enabled="true"
+        android:icon="@drawable/rem"
+        android:shortcutShortLabel="@string/shortcutRemShortLabel"
+        android:shortcutLongLabel="@string/shortcutRemLongLabel"
+        android:shortcutDisabledMessage="@string/shortcutRemDisabledMessage"
+        tools:targetApi="n_mr1">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.logic.demo"
+            android:targetClass="com.logic.demo.learn.android.demo.webview.WebviewActivity" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+   <!-- <shortcut
+        android:shortcutId="apple"
+        android:enabled="true"
+        android:icon="@drawable/apple"
+        android:shortcutShortLabel="@string/shortcutAppleShortLabel"
+        android:shortcutLongLabel="@string/shortcutAppLongLabel"
+        android:shortcutDisabledMessage="@string/shortcutAppDisabledMessage"
+        tools:targetApi="n_mr1">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.logic.demo"
+            android:targetClass="com.logic.demo.learn.android.demo.webview.WebviewActivity" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>-->
+    <!-- Specify more shortcuts here. -->
+</shortcuts>
