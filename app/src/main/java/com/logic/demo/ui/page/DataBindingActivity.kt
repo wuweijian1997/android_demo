@@ -1,10 +1,11 @@
-package com.logic.demo
+package com.logic.demo.ui.page
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModelProvider
+import com.logic.demo.R
 import com.logic.demo.databinding.ActivityDataBindingBinding
 import com.logic.demo.model.ObservableCount
 import com.logic.demo.model.ViewModelCount

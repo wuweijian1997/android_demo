@@ -1,7 +1,6 @@
 package com.logic.demo.const
 
 import androidx.appcompat.app.AppCompatActivity
-import com.logic.demo.DataBindingActivity
 import com.logic.demo.learn.android.demo.audio.AudioActivity
 import com.logic.demo.learn.android.demo.camera.CameraActivity
 import com.logic.demo.learn.android.demo.contacts.ContactsActivity
@@ -17,9 +16,7 @@ import com.logic.demo.learn.android.demo.webview.WebviewActivity
 import com.logic.demo.learn.android.layout.RecyclerViewDemo
 import com.logic.demo.learn.android.layout.StaggeredGridDemo
 import com.logic.demo.model.PageItem
-import com.logic.demo.ui.page.IntentActivity
-import com.logic.demo.ui.page.ShortcutActivity
-import com.logic.demo.ui.page.ViewBindingActivity
+import com.logic.demo.ui.page.*
 
 val homePageList = listOf<PageItem<AppCompatActivity>>(
     PageItem("RecyclerView", RecyclerViewDemo::class.java),
@@ -39,5 +36,6 @@ val homePageList = listOf<PageItem<AppCompatActivity>>(
     PageItem("ViewBinding", ViewBindingActivity::class.java),
     PageItem("Intent", IntentActivity::class.java),
     PageItem("快捷方式", ShortcutActivity::class.java),
-    PageItem("DataBinding", DataBindingActivity::class.java)
+    PageItem("DataBinding", DataBindingActivity::class.java),
+    PageItem("DataStore", DataStoreActivity::class.java)
 )
