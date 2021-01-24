@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.preferences.createDataStore
 import com.logic.demo.R
 import com.logic.demo.databinding.ActivityIntentBinding
 import com.logic.demo.learn.android.extension.showToast
