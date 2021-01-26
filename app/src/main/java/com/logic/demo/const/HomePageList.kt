@@ -37,5 +37,6 @@ val homePageList = listOf<PageItem<AppCompatActivity>>(
     PageItem("Intent", IntentActivity::class.java),
     PageItem("快捷方式", ShortcutActivity::class.java),
     PageItem("DataBinding", DataBindingActivity::class.java),
-    PageItem("DataStore", DataStoreActivity::class.java)
+    PageItem("DataStore", DataStoreActivity::class.java),
+    PageItem("LiveData", LiveDataActivity::class.java)
 )
