@@ -3,6 +3,7 @@ package com.logic.demo.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.logic.demo.logic.Repository
 
 class NameViewModel : ViewModel() {
     val currentName: MutableLiveData<String> = MutableLiveData()
@@ -20,9 +21,9 @@ class NameViewModel : ViewModel() {
 
     private val searchText = MutableLiveData<String>()
 
-  /*  val fetchSearch = Transformations.switchMap(searchText) {
-
-    }*/
+    val fetchSearch = Transformations.switchMap(searchText) {
+        Repository.search(it)
+    }
 
     fun searchInput(search: String) {
         searchText.value = search

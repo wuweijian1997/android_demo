@@ -26,6 +26,10 @@ object Repository {
         Result.success(Unit)
     }
 
+    fun search(value: String) = fire(Dispatchers.IO) {
+        Result.success("Search: $value")
+    }
+
     private fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) =
         liveData<Result<T>>(context) {
             val result = try {
