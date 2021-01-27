@@ -38,5 +38,7 @@ val homePageList = listOf<PageItem<AppCompatActivity>>(
     PageItem("快捷方式", ShortcutActivity::class.java),
     PageItem("DataBinding", DataBindingActivity::class.java),
     PageItem("DataStore", DataStoreActivity::class.java),
-    PageItem("LiveData", LiveDataActivity::class.java)
+    PageItem("LiveData", LiveDataActivity::class.java),
+    PageItem("MotionLayout", MotionLayoutActivity::class.java),
+    PageItem("DragDrop", DragDropActivity::class.java)
 )
