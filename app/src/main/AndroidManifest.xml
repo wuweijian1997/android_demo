@@ -17,7 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.page.DragDropActivity"></activity>
+        <activity android:name=".ui.page.PictureInPictureActivity"
+            android:supportsPictureInPicture="true"
+            android:configChanges=
+                "screenSize|smallestScreenSize|screenLayout|orientation"
+            tools:targetApi="n" />
+        <activity android:name=".ui.page.DragDropActivity" />
         <activity android:name=".ui.page.MotionLayoutActivity" />
         <activity android:name=".ui.page.LiveDataActivity" />
         <activity android:name=".ui.page.DataStoreActivity" />
