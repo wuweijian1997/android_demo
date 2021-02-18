@@ -42,5 +42,6 @@ val homePageList = listOf<PageItem<AppCompatActivity>>(
     PageItem("MotionLayout", MotionLayoutActivity::class.java),
     PageItem("DragDrop", DragDropActivity::class.java),
     PageItem("PictureInPicture", PictureInPictureActivity::class.java),
-    PageItem("ConstraintLayout", ActivityConstraint::class.java)
+    PageItem("ConstraintLayout", ActivityConstraint::class.java),
+    PageItem("LoadFragment", FragmentActivity::class.java)
 )
