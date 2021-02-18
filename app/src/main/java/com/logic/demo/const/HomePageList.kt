@@ -41,5 +41,6 @@ val homePageList = listOf<PageItem<AppCompatActivity>>(
     PageItem("LiveData", LiveDataActivity::class.java),
     PageItem("MotionLayout", MotionLayoutActivity::class.java),
     PageItem("DragDrop", DragDropActivity::class.java),
-    PageItem("PictureInPicture", PictureInPictureActivity::class.java)
+    PageItem("PictureInPicture", PictureInPictureActivity::class.java),
+    PageItem("ConstraintLayout", ActivityConstraint::class.java)
 )
