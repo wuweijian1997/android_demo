@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.page.ViewPagerActivity"></activity>
+        <activity android:name=".ui.page.HandlerActivity"></activity>
+        <activity android:name=".ui.page.ViewPagerActivity" />
         <activity android:name=".ui.page.FragmentActivity" />
         <activity
             android:name=".ui.page.ActivityConstraint"
@@ -147,6 +148,7 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.logic.demo.fileProvider"
