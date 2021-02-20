@@ -45,5 +45,7 @@ val homePageList = listOf<PageItem<AppCompatActivity>>(
     PageItem("ConstraintLayout", ActivityConstraint::class.java),
     PageItem("LoadFragment", FragmentActivity::class.java),
     PageItem("ViewPager", ViewPagerActivity::class.java),
-    PageItem("Handler", HandlerActivity::class.java)
+    PageItem("Handler", HandlerActivity::class.java),
+    PageItem("Animation", AnimationActivity::class.java),
+    PageItem("CustomView", CustomViewActivity::class.java)
 )

@@ -17,7 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.page.HandlerActivity"></activity>
+        <activity android:name=".ui.page.CustomViewActivity"></activity>
+        <activity android:name=".ui.page.SceneActivity" />
+        <activity android:name=".ui.page.AnimationActivity" />
+        <activity android:name=".ui.page.HandlerActivity" />
         <activity android:name=".ui.page.ViewPagerActivity" />
         <activity android:name=".ui.page.FragmentActivity" />
         <activity
