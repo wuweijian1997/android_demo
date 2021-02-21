@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".ui.page.CustomViewActivity">
 
     <com.logic.demo.ui.view.TestView
@@ -17,4 +19,16 @@
         app:test_enum="bottom"
         app:test_integer="10000"
         app:test_string="Hello World" />
+
+    <com.logic.demo.ui.view.RoundProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:padding="10dp"
+        android:progress="0"
+        app:radius="50dp"
+        app:line_width="4dp"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        />
 </LinearLayout>
