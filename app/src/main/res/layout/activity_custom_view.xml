@@ -7,6 +7,7 @@
     tools:context=".ui.page.CustomViewActivity">
 
     <com.logic.demo.ui.view.TestView
+        android:id="@+id/id_test"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
