@@ -47,5 +47,7 @@ val homePageList = listOf<PageItem<AppCompatActivity>>(
     PageItem("ViewPager", ViewPagerActivity::class.java),
     PageItem("Handler", HandlerActivity::class.java),
     PageItem("Animation", AnimationActivity::class.java),
-    PageItem("CustomView", CustomViewActivity::class.java)
+    PageItem("CustomView", CustomViewActivity::class.java),
+    PageItem("SurfaceView", SurfaceViewActivity::class.java),
+    PageItem("FlyBird SurfaceView", FlyBirdActivity::class.java)
 )
