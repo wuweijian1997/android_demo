@@ -4,11 +4,13 @@ import android.content.Context
 import android.graphics.*
 import android.os.Build
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
 import androidx.annotation.DrawableRes
 import com.logic.demo.R
+import com.logic.demo.util.Utils
 
 class FlyBird @JvmOverloads constructor(
     context: Context,
@@ -28,6 +30,16 @@ class FlyBird @JvmOverloads constructor(
     private lateinit var mFloor: Floor
     private lateinit var mBird: Bird
 
+    private val speed: Float = Utils.dp2px(context, 2f)
+
+    companion object {
+        const val TOUCH_UP_SIZE: Float = -16f
+        const val SIZE_AUTO_DOWN: Float = 2f
+    }
+
+    private val mBirdUpDis = Utils.dp2px(context, TOUCH_UP_SIZE);
+    private val mAutoDownDis = Utils.dp2px(context, SIZE_AUTO_DOWN)
+    private var mTmpBirdDis = 0
 
     init {
         holder.addCallback(object : SurfaceHolder.Callback {
@@ -46,6 +58,7 @@ class FlyBird @JvmOverloads constructor(
                     }
                 }
                 mThread.start()
+
             }
 
             override fun surfaceChanged(
@@ -73,8 +86,8 @@ class FlyBird @JvmOverloads constructor(
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         mDestRect = RectF(0f, 0f, w.toFloat(), h.toFloat())
-        mFloor = Floor(context, w, h,mFloorBm)
-        mBird = Bird(context, w, h,mBirdBm)
+        mFloor = Floor(context, w, h, mFloorBm)
+        mBird = Bird(context, w, h, mBirdBm)
     }
 
     private fun initRes() {
@@ -91,13 +104,27 @@ class FlyBird @JvmOverloads constructor(
         val canvas = holder.lockCanvas()
         if (canvas != null) {
             drawBg(canvas)
+            logic()
             mFloor.draw(canvas)
             mBird.draw(canvas)
         }
         holder.unlockCanvasAndPost(canvas)
     }
 
+    private fun logic() {
+        mFloor.setX(mFloor.getX() - speed.toInt())
+        mTmpBirdDis += mAutoDownDis.toInt()
+        mBird.setY(mBird.getY() + mTmpBirdDis)
+    }
+
     private fun drawBg(canvas: Canvas?) {
         canvas?.drawBitmap(mBg, null, mDestRect, null)
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (event?.action == MotionEvent.ACTION_DOWN) {
+            mTmpBirdDis = mBirdUpDis.toInt()
+        }
+        return true
     }
 }
