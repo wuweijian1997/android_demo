@@ -17,8 +17,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".project.step.StepWelcomeActivity"></activity>
-        <activity android:name=".project.step.StepActivity" />
         <activity android:name=".ui.page.FlyBirdActivity" />
         <activity android:name=".ui.page.SurfaceViewActivity" />
         <activity android:name=".ui.page.CustomViewActivity" />
